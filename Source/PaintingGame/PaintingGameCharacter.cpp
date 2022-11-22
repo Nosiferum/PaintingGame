@@ -77,7 +77,7 @@ void APaintingGameCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 void APaintingGameCharacter::OnPrimaryAction()
 {
 	// Trigger the OnItemUsed Event
-	OnUseItem.Broadcast();
+	//OnUseItem.Broadcast();////////////////////////////////////////////////////////
 }
 
 void APaintingGameCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
