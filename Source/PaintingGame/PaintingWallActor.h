@@ -16,13 +16,23 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	void CheckForPlayerInputToChange() const;
+	void ClearPaintingWall();
 
 public:	
 	virtual void Tick(float DeltaTime) override;
+	void SetBrushSize(float BrushSize) const;
+	void SetStaticMeshMaterialColor(FLinearColor LinearColor) const;
 
 private:
 	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	UMaterialInstanceDynamic* MyMaterialInstance;
 	UMaterial* LoadedPaintingMaterial;
+	UStaticMeshComponent* StaticMesh; 
+	UMaterialInterface* StaticMeshMaterial;
+	UMaterialInstanceDynamic* MyStaticMaterialInstance;
+	APlayerController* PlayerController;
+	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	bool IsErasable = false;
 
 };

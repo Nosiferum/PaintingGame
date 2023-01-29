@@ -101,8 +101,16 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+public:	
+	virtual void Tick(float DeltaTime) override;
+	
 private:
-	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	bool IsDrawing = false;
+	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	FVector Start;
+	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	FVector End;
+	UCameraComponent* FirstPersonCamera;
 };
 

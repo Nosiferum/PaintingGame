@@ -41,6 +41,19 @@ void APaintingGameCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
+	FirstPersonCamera = GetFirstPersonCameraComponent();
+}
+
+void APaintingGameCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (IsDrawing)
+	{
+		Start = FirstPersonCamera->GetComponentLocation();
+		End = Start + FirstPersonCamera->GetForwardVector() * 500;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
