@@ -15,14 +15,14 @@ public:
 	APaintingWallActor();
 
 protected:
-	UPROPERTY(BlueprintReadOnly)
-	UMaterialInstanceDynamic* MyMaterialInstance;
 	virtual void BeginPlay() override;
 
 public:	
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	UMaterialInstanceDynamic* MyMaterialInstance;
 	UMaterial* LoadedPaintingMaterial;
 
 };

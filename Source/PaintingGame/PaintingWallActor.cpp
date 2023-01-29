@@ -13,7 +13,6 @@ void APaintingWallActor::BeginPlay()
 	Super::BeginPlay();
 
 	MyMaterialInstance = UMaterialInstanceDynamic::Create(LoadedPaintingMaterial, this);
-	
 }
 
 void APaintingWallActor::Tick(float DeltaTime)

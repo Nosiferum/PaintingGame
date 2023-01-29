@@ -33,7 +33,7 @@ void UPaint::PaintWall()
 	const FVector Start = GetOwner()->GetActorLocation();
 	const FVector End = Start + GetOwner()->GetActorForwardVector() * 50;
 
-	DrawDebugCapsule(World, End, 20, 10,FQuat::Identity, FColor::Blue, false, 5);
+	//DrawDebugCapsule(World, End, 20, 10,FQuat::Identity, FColor::Blue, false, 5);
 	
 	/*if (World->SweepSingleByChannel(HitResult, Start, End, FQuat::Identity, ECC_GameTraceChannel2, FCollisionShape::MakeCapsule(20, 10)))
 	{
@@ -74,7 +74,6 @@ void UPaint::PaintWall()
 
 		if (const UMaterialInstanceCreator* MaterialInstanceCreator = HitResult.Component->GetOwner()->FindComponentByClass<UMaterialInstanceCreator>())
 		{
-			//UE_LOG(LogTemp, Display, TEXT("asdad"))
 			MaterialInstanceCreator->PaintWall();
 		}
 	}

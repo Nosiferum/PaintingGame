@@ -22,7 +22,7 @@ void UMaterialInstanceCreator::TickComponent(float DeltaTime, ELevelTick TickTyp
 
 void UMaterialInstanceCreator::PaintWall() const
 {
-	MyMaterialInstance->SetVectorParameterValue("Color", FLinearColor::Yellow);
+	MyMaterialInstance->SetVectorParameterValue("Color", FLinearColor::Red);
 
 	StaticMesh->SetMaterial(0, MyMaterialInstance);
 }

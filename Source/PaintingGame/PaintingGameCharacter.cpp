@@ -41,7 +41,6 @@ void APaintingGameCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
-
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -56,7 +55,9 @@ void APaintingGameCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	// Bind fire event
-	PlayerInputComponent->BindAction("PrimaryAction", IE_Pressed, this, &APaintingGameCharacter::OnPrimaryAction);
+	//PlayerInputComponent->BindAction("PrimaryAction", IE_Pressed, this, &APaintingGameCharacter::OnPrimaryAction);
+	PlayerInputComponent->BindAction("Paint", IE_Pressed, this, &APaintingGameCharacter::OnPaintStarted);
+	PlayerInputComponent->BindAction("Paint", IE_Released, this, &APaintingGameCharacter::OnPaintFinished);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -74,10 +75,20 @@ void APaintingGameCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAxis("Look Up / Down Gamepad", this, &APaintingGameCharacter::LookUpAtRate);
 }
 
-void APaintingGameCharacter::OnPrimaryAction()
+/*void APaintingGameCharacter::OnPrimaryAction()
 {
 	// Trigger the OnItemUsed Event
-	//OnUseItem.Broadcast();////////////////////////////////////////////////////////
+	OnUseItem.Broadcast();
+}*/
+
+void APaintingGameCharacter::OnPaintStarted()
+{
+	IsDrawing = true;
+}
+
+void APaintingGameCharacter::OnPaintFinished()
+{
+	IsDrawing = false;
 }
 
 void APaintingGameCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
@@ -86,10 +97,10 @@ void APaintingGameCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, con
 	{
 		return;
 	}
-	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
+	/*if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
 	{
 		OnPrimaryAction();
-	}
+	}*/
 	TouchItem.bIsPressed = true;
 	TouchItem.FingerIndex = FingerIndex;
 	TouchItem.Location = Location;

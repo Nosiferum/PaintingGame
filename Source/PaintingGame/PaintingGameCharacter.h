@@ -46,8 +46,10 @@ public:
 	FOnUseItem OnUseItem;
 protected:
 	
-	/** Fires a projectile. */
-	void OnPrimaryAction();
+	/*/** Fires a projectile. #1#
+	void OnPrimaryAction();*/
+	void OnPaintStarted();
+	void OnPaintFinished();
 
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);
@@ -99,5 +101,8 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+private:
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
+	bool IsDrawing = false;
 };
 
