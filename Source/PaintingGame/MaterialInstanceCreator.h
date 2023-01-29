@@ -4,16 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "Paint.generated.h"
+#include "MaterialInstanceCreator.generated.h"
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class PAINTINGGAME_API UPaint : public UActorComponent
+class PAINTINGGAME_API UMaterialInstanceCreator : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UPaint();
+	UMaterialInstanceCreator();
 
 protected:
 	// Called when the game starts
@@ -22,14 +23,10 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-
-private:
-	void PaintWall();
+	void PaintWall() const;
 
 private:
-	/*UMaterial* LoadedPaintingMaterial;
-	UMaterialInstanceDynamic* MyMaterialInstance;*/
-
-	UWorld* World;
+	UStaticMeshComponent* StaticMesh;
+	UMaterialInstanceDynamic* MyMaterialInstance;
+		
 };

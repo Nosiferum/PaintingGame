@@ -3,9 +3,14 @@
 
 #include "Paint.h"
 
+#include "MaterialInstanceCreator.h"
+
+
 UPaint::UPaint()
 {
 	PrimaryComponentTick.bCanEverTick = true;
+
+	//LoadedPaintingMaterial = LoadObject<UMaterial>(nullptr, TEXT("Material'/Game/Materials/MT_Blue.MT_Blue'"));
 }
 
 void UPaint::BeginPlay()
@@ -19,10 +24,10 @@ void UPaint::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponent
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	//PaintWall();
+	PaintWall();
 }
 
-void UPaint::PaintWall() const
+void UPaint::PaintWall() 
 {
 	FHitResult HitResult;
 	const FVector Start = GetOwner()->GetActorLocation();
@@ -30,13 +35,49 @@ void UPaint::PaintWall() const
 
 	DrawDebugCapsule(World, End, 20, 10,FQuat::Identity, FColor::Blue, false, 5);
 	
-	if (World->SweepSingleByChannel(HitResult, Start, End, FQuat::Identity, ECC_GameTraceChannel2, FCollisionShape::MakeCapsule(20, 10)))
+	/*if (World->SweepSingleByChannel(HitResult, Start, End, FQuat::Identity, ECC_GameTraceChannel2, FCollisionShape::MakeCapsule(20, 10)))
 	{
-		//HitResult.GetActor()->FindComponentByClass<UStaticMesh>();
-	}
-	
+		if (UStaticMeshComponent* StaticMesh = Cast<UStaticMeshComponent>(HitResult.GetComponent()))
+		{
+			MyMaterialInstance = UMaterialInstanceDynamic::Create(LoadedPaintingMaterial, this);
+			MyMaterialInstance->SetVectorParameterValue("Color", FLinearColor::Red);
 
+			StaticMesh->SetMaterial(0, MyMaterialInstance);
+		}
+	}*/
 	
+	/*if (World->LineTraceSingleByChannel(HitResult, Start, End, ECC_GameTraceChannel2))
+	{
+		if (UStaticMeshComponent* StaticMesh = Cast<UStaticMeshComponent>(HitResult.GetComponent()))
+		{
+			MyMaterialInstance = UMaterialInstanceDynamic::Create(LoadedPaintingMaterial, this);
+			MyMaterialInstance->SetVectorParameterValue("Color", FLinearColor::Red);
+
+			StaticMesh->SetMaterial(0, MyMaterialInstance);
+			
+			FVector UV;
+				UV = HitResult.ImpactPoint - HitResult.Normal * FVector::DotProduct(HitResult.ImpactPoint, HitResult.Normal);	
+		}
+	}*/
+
+	if (World->LineTraceSingleByChannel(HitResult, Start, End, ECC_GameTraceChannel2))
+	{
+		/*if (UStaticMeshComponent* StaticMesh = Cast<UStaticMeshComponent>(HitResult.GetComponent()))
+		{
+			MyMaterialInstance = UMaterialInstanceDynamic::Create(StaticMesh->GetMaterial(0), StaticMesh);
+			MyMaterialInstance->SetVectorParameterValue("Color", FLinearColor::Red);
+
+			StaticMesh->SetMaterial(0, MyMaterialInstance);
+			
+			
+		}*/
+
+		if (const UMaterialInstanceCreator* MaterialInstanceCreator = HitResult.Component->GetOwner()->FindComponentByClass<UMaterialInstanceCreator>())
+		{
+			//UE_LOG(LogTemp, Display, TEXT("asdad"))
+			MaterialInstanceCreator->PaintWall();
+		}
+	}
 	
 }
 
