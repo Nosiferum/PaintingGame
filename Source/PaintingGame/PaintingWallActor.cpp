@@ -21,6 +21,8 @@ void APaintingWallActor::BeginPlay()
 	StaticMesh->SetMaterial(0, MyStaticMaterialInstance);
 
 	PlayerController = GetWorld()->GetFirstPlayerController();
+
+	//OnPaintWall.AddDynamic(this, &APaintingWallActor::DrawOnWall);
 }
 
 void APaintingWallActor::Tick(float DeltaTime)
@@ -42,6 +44,14 @@ void APaintingWallActor::ClearPaintingWall()
 	{
 		IsErasable = false;
 	}
+}
+
+void APaintingWallActor::DrawOnWall(const FVector2D LocationToDraw)
+{
+	const FLinearColor LinearColor = FLinearColor(FVector(LocationToDraw, 0.f));
+	MyMaterialInstance->SetVectorParameterValue("DrawLocation", LinearColor);
+
+	UE_LOG(LogTemp, Display, TEXT("asdasd"));
 }
 
 void APaintingWallActor::CheckForPlayerInputToChange() const

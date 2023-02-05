@@ -16,6 +16,7 @@ class USoundBase;
 // Declaration of the delegate that will be called when the Primary Action is triggered
 // It is declared as dynamic so it can be accessed also in Blueprints
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnUseItem);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnStartPainting);
 
 UCLASS(config=Game)
 class APaintingGameCharacter : public ACharacter
@@ -44,6 +45,9 @@ public:
 	/** Delegate to whom anyone can subscribe to receive this event */
 	UPROPERTY(BlueprintAssignable, Category = "Interaction")
 	FOnUseItem OnUseItem;
+	UPROPERTY(BlueprintAssignable)
+	FOnStartPainting OnStartPainting;
+	
 protected:
 	
 	/*/** Fires a projectile. #1#

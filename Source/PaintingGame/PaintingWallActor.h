@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "PaintingWallActor.generated.h"
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPaintWall, FVector2D, LocationToDraw);
 
 UCLASS()
 class PAINTINGGAME_API APaintingWallActor : public AActor
@@ -13,11 +14,20 @@ class PAINTINGGAME_API APaintingWallActor : public AActor
 	
 public:	
 	APaintingWallActor();
+	/*UPROPERTY(BlueprintCallable, BlueprintAssignable)
+	FOnPaintWall OnPaintWall;*/
 
 protected:
 	virtual void BeginPlay() override;
 	void CheckForPlayerInputToChange() const;
 	void ClearPaintingWall();
+	
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void OnDrawWall(FVector2D LocationToDraw);
+	UFUNCTION(BlueprintCallable)
+	void DrawOnWall(FVector2D LocationToDraw);
+	
+	
 
 public:	
 	virtual void Tick(float DeltaTime) override;

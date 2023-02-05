@@ -96,7 +96,8 @@ void APaintingGameCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 
 void APaintingGameCharacter::OnPaintStarted()
 {
-	IsDrawing = true;
+	//IsDrawing = true;
+	OnStartPainting.Broadcast();
 }
 
 void APaintingGameCharacter::OnPaintFinished()
